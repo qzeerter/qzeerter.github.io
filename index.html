@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="qzeerter">
+    <meta name="description" content="Info qzeerter">
+    <title>Info qzeerter</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="loader-content">
+            <span class="sys-text">SYSTEM.INIT()</span>
+            <div class="progress-bar"><div class="progress"></div></div>
+        </div>
+    </div>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <canvas id="bg-canvas"></canvas>
+    <div class="noise"></div>
+    <div class="blob" id="blob"></div>
+
+    <div class="glass-card" id="card">
+        
+        <div class="top-bar fade-in" style="--delay: 0.1s">
+            <div class="sys-time">LOCAL // <span id="clock">00:00:00</span></div>
+            <div class="status-badge"><div class="status-dot-small"></div> ACTIVE</div>
+        </div>
+
+        <div class="profile-wrapper fade-in" style="--delay: 0.2s">
+            <img src="https://ui-avatars.com/api/?name=QZ&background=0a0000&color=ff4d4d&size=150" alt="Avatar" class="avatar">
+        </div>
+        
+        <div class="text-wrapper fade-in" style="--delay: 0.3s">
+            <h1 class="glitch" data-text="qzeerter">qzeerter</h1>
+            <p>Oh...</p>
+        </div>
+
+        <div class="music-widget fade-in" style="--delay: 0.4s">
+            <div class="music-icon"><i class="fa-brands fa-spotify"></i></div>
+            <div class="music-info" id="music-container">
+                <span class="music-title" id="track-title">Midnight City</span>
+                <span class="music-artist" id="track-artist">M83</span>
+            </div>
+            <div class="equalizer">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </div>
+        </div>
+
+        <div class="marquee-container fade-in" style="--delay: 0.5s">
+            <div class="marquee-content">
+                <span><i class="fa-brands fa-html5" style="color:#E34F26"></i> HTML</span>
+                <span><i class="fa-brands fa-css3-alt" style="color:#1572B6"></i> CSS</span>
+                <span><i class="fa-brands fa-js" style="color:#F7DF1E"></i> JavaScript</span>
+                <span><i class="fa-brands fa-react" style="color:#61DAFB"></i> React</span>
+                <span><i class="fa-brands fa-node" style="color:#339933"></i> Node.js</span>
+                
+                <span><i class="fa-brands fa-html5" style="color:#E34F26"></i> HTML</span>
+                <span><i class="fa-brands fa-css3-alt" style="color:#1572B6"></i> CSS</span>
+                <span><i class="fa-brands fa-js" style="color:#F7DF1E"></i> JavaScript</span>
+                <span><i class="fa-brands fa-react" style="color:#61DAFB"></i> React</span>
+                <span><i class="fa-brands fa-node" style="color:#339933"></i> Node.js</span>
+            </div>
+        </div>
+
+        <div class="links-container">
+            <a href="https://youtube.com/@qzeerter" target="_blank" class="social-btn btn-youtube fade-in" style="--delay: 0.6s">
+                <div class="btn-content">
+                    <i class="fa-brands fa-youtube"></i>
+                    <div class="btn-text">
+                        <span class="btn-title">YouTube</span>
+                        <span class="btn-subtitle">qzeerter</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-arrow-right arrow-icon"></i>
+            </a>
+
+            <a href="https://github.com/qzeerter" target="_blank" class="social-btn btn-github fade-in" style="--delay: 0.7s">
+                <div class="btn-content">
+                    <i class="fa-brands fa-github"></i>
+                    <div class="btn-text">
+                        <span class="btn-title">GitHub</span>
+                        <span class="btn-subtitle">qzeerter</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-arrow-right arrow-icon"></i>
+            </a>
+
+            <a href="https://t.me/pixelnxva" target="_blank" class="social-btn btn-telegram fade-in" style="--delay: 0.8s">
+                <div class="btn-content">
+                    <i class="fa-brands fa-telegram"></i>
+                    <div class="btn-text">
+                        <span class="btn-title">Telegram</span>
+                        <span class="btn-subtitle">pixelnxva</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-arrow-right arrow-icon"></i>
+            </a>
+            
+            <button class="social-btn btn-copy fade-in" style="--delay: 0.9s" onclick="copyEmail()">
+                <div class="btn-content">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div class="btn-text">
+                        <span class="btn-title">Связаться со мной</span>
+                        <span class="btn-subtitle" id="email-text">qzeerter@gmail.com</span>
+                    </div>
+                </div>
+                <i class="fa-regular fa-copy copy-icon" id="copy-icon"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
