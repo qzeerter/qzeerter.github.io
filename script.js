@@ -61,7 +61,7 @@ const syncClock = () => {
     const statusDot = document.getElementById('status-dot');
     
     if (statusText && statusDot) {
-        // Время владельца (UTC+3, Москва)
+
         const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
         const ownerTime = new Date(utc + (3600000 * 3)); 
         const h = ownerTime.getHours();
@@ -211,3 +211,4 @@ if (tracker) {
     }
     trackBlob();
 }
+
