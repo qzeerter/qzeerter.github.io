@@ -11,36 +11,71 @@ window.addEventListener('load', () => {
     }, 1600);
 });
 
-const tracks = [
-    { title: "Midnight City", artist: "M83" },
-    { title: "Nightcall", artist: "Kavinsky" },
-    { title: "Starboy", artist: "The Weeknd" },
-    { title: "Memory Reboot", artist: "VØJ, Narvent" },
-    { title: "After Dark", artist: "Mr.Kitty" }
-];
+const musicWidget = document.getElementById('music-widget');
+const playBtn = document.getElementById('play-btn');
+const stopBtn = document.getElementById('stop-btn');
+const playIcon = document.getElementById('play-icon');
+const progressFill = document.getElementById('progress-fill');
 
-let currentTrack = 0;
-const uiTitle = document.getElementById('track-title');
-const uiArtist = document.getElementById('track-artist');
-const playerContainer = document.getElementById('music-container');
+if (musicWidget && playBtn && stopBtn && playIcon && progressFill) {
+    const audio = new Audio('music.mp3');
+    audio.loop = true;
+    let isPlaying = false;
+    
+    playBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+            playIcon.className = 'fa-solid fa-play';
+            musicWidget.style.opacity = '0.7';
+        } else {
+            audio.play();
+            playIcon.className = 'fa-solid fa-pause';
+            musicWidget.style.opacity = '1';
+        }
+        isPlaying = !isPlaying;
+    });
 
-if (uiTitle && uiArtist && playerContainer) {
-    setInterval(() => {
-        playerContainer.classList.add('fade');
-        setTimeout(() => {
-            currentTrack = (currentTrack + 1) % tracks.length;
-            uiTitle.textContent = tracks[currentTrack].title;
-            uiArtist.textContent = tracks[currentTrack].artist;
-            playerContainer.classList.remove('fade');
-        }, 400);
-    }, 4500);
+    stopBtn.addEventListener('click', () => {
+        audio.pause();
+        audio.currentTime = 0;
+        isPlaying = false;
+        playIcon.className = 'fa-solid fa-play';
+        musicWidget.style.opacity = '0.7';
+        progressFill.style.width = '0%';
+    });
+
+    audio.addEventListener('timeupdate', () => {
+        if (audio.duration) {
+            const p = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = `${p}%`;
+        }
+    });
 }
 
 const syncClock = () => {
-    const el = document.getElementById('clock');
-    if (!el) return;
     const d = new Date();
-    el.textContent = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}`;
+    const el = document.getElementById('clock');
+    if (el) el.textContent = d.toLocaleTimeString('ru-RU', { hour12: false });
+
+    const statusText = document.getElementById('status-text');
+    const statusDot = document.getElementById('status-dot');
+    
+    if (statusText && statusDot) {
+        // Время владельца (UTC+3, Москва)
+        const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+        const ownerTime = new Date(utc + (3600000 * 3)); 
+        const h = ownerTime.getHours();
+
+        if (h >= 8 && h < 24) {
+            statusText.textContent = "ACTIVE";
+            statusDot.style.backgroundColor = "#00ff88";
+            statusDot.style.boxShadow = "0 0 6px #00ff88";
+        } else {
+            statusText.textContent = "OFFLINE";
+            statusDot.style.backgroundColor = "#666";
+            statusDot.style.boxShadow = "none";
+        }
+    }
 };
 setInterval(syncClock, 1000);
 syncClock();
@@ -61,12 +96,12 @@ window.addEventListener('mousemove', (e) => {
 document.querySelectorAll('.social-btn, .music-widget').forEach(btn => {
     btn.addEventListener('mouseenter', () => {
         if (outline) outline.setAttribute('style', 'width: 60px; height: 60px; background-color: rgba(255, 77, 77, 0.1);');
+        btn.style.transition = 'transform 0.1s ease-out';
     });
     
     btn.addEventListener('mousemove', (e) => {
         const r = btn.getBoundingClientRect();
         btn.style.transform = `translate(${(e.clientX - r.left - r.width/2) * 0.1}px, ${(e.clientY - r.top - r.height/2) * 0.1}px) scale(1.02)`;
-        btn.style.transition = 'transform 0.1s ease-out';
     });
     
     btn.addEventListener('mouseleave', () => {
@@ -146,7 +181,7 @@ if (cvs) {
         for (let a = 0; a < parts.length; a++) {
             for (let b = a; b < parts.length; b++) {
                 let d = (parts[a].x - parts[b].x)**2 + (parts[a].y - parts[b].y)**2;
-                if (d < (cvs.width/7) * (cvs.height/7)) {
+                if (d < 25000) {
                     ctx.strokeStyle = `rgba(255, 77, 77, ${(1 - d/25000) * 0.25})`; 
                     ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(parts[a].x, parts[a].y); ctx.lineTo(parts[b].x, parts[b].y); ctx.stroke();
                 }
