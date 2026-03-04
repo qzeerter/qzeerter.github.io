@@ -30,8 +30,8 @@
     <div class="glass-card" id="card">
         
         <div class="top-bar fade-in" style="--delay: 0.1s">
-            <div class="sys-time">LOCAL // <span id="clock">00:00:00</span></div>
-            <div class="status-badge"><div class="status-dot-small"></div> ACTIVE</div>
+            <div class="sys-time"><span id="clock">00:00:00</span></div>
+            <div class="status-badge"><div class="status-dot-small" id="status-dot"></div> <span id="status-text">ACTIVE</span></div>
         </div>
 
         <div class="profile-wrapper fade-in" style="--delay: 0.2s">
@@ -43,11 +43,15 @@
             <p>Oh...</p>
         </div>
 
-        <div class="music-widget fade-in" style="--delay: 0.4s">
-            <div class="music-icon"><i class="fa-brands fa-spotify"></i></div>
-            <div class="music-info" id="music-container">
-                <span class="music-title" id="track-title">Midnight City</span>
-                <span class="music-artist" id="track-artist">M83</span>
+        <div class="music-widget fade-in" style="--delay: 0.4s" id="music-widget">
+            <div class="music-icon" id="play-btn" style="cursor: pointer;"><i class="fa-solid fa-play" id="play-icon"></i></div>
+            <div class="music-icon" id="stop-btn" style="margin-left: 10px; cursor: pointer;"><i class="fa-solid fa-stop"></i></div>
+            <div class="music-info">
+                <span class="music-title">Looming.Sorrow.Descent</span>
+                <span class="music-artist">Sewerslvt</span>
+                <div style="width: 100%; height: 3px; background: rgba(255,255,255,0.2); margin-top: 5px; border-radius: 2px; overflow: hidden;">
+                    <div id="progress-fill" style="width: 0%; height: 100%; background: #ff4d4d; transition: width 0.1s linear;"></div>
+                </div>
             </div>
             <div class="equalizer">
                 <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
